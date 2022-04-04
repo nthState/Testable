@@ -3,17 +3,14 @@ import XCTest
 
 final class ParserTests: XCTestCase {
 
-  
-
   func testExample2() throws {
 
     //let app = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-    let app = BaseEvents()
 
-    let mapper = Mapper()
-    mapper.map(step: "When I tap login", app: app)
+    let iterator = FeatureFileIterator(file: URL(string: "ffff")!)
+    let result = iterator.findMapping(line: "When I tap login")
 
-    XCTFail("Testing")
+    XCTAssertEqual(result?.parameters.count, 2, "Two parameters")
 
   }
 }

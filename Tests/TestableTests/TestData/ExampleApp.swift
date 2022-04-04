@@ -7,8 +7,4 @@
 
 import Foundation
 
-class ExampleApp {
-
-
-
-}
+class ExampleApp {}

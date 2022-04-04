@@ -10,20 +10,17 @@ import XCTest
 
 class RunnerTests: XCTestCase {
 
-
   func testExample() async throws {
 
-    let url = Bundle.module.url(forResource: "Example", withExtension: "feature")!
+    let url = FileManager.default.findAllFeatureFiles(named: "When.feature", bundle: Bundle.module).first!
 
-    //let runner = FileManager.default
-    //let features = runner.findAllFeatureFiles(bundle: Bundle.module)
-    //runner.loadFeatureFile(at: url)
+    let system = BaseEvents()
+    let executor = Executor(system: system)
 
     for try await step in UIActionSequence(featureFile: url) {
-      something.execute(step)
+      executor.execute(step: step)
     }
 
   }
-
 
 }
