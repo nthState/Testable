@@ -49,6 +49,10 @@ func findMapping(line action: String) -> (regex: String, selector: Selector, par
       }
     }
 
+    guard result != nil else {
+      continue
+    }
+
     return (regex, selector, parameters)
   }
 
