@@ -20,7 +20,7 @@ class BaseEvents: NSObject {
 extension BaseEvents {
 
   @objc public func test(action: String, identifier: String) {
-    print("Action: \(action) \(identifier)")
+    logger.info("Action: \(action) \(identifier)")
   }
 
 }
