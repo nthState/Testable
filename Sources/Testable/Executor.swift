@@ -15,7 +15,7 @@ class Executor {
     self.system = system
   }
 
-  func execute(step: UIStep) {
+  func execute(step: UITestStep) {
 
     let selector = step.selector
     let parameters = step.parameters

@@ -34,3 +34,8 @@ If the tests are to be `Human Readable`, how would one make the mapping?
 Ideas:
 - Could there be a seperate mapping.feature file, that other files can inherit?
 - Is it a problem if the person writing the tests uses the Text on screen?
+
+
+## Links
+
+https://www.swiftbysundell.com/articles/async-sequences-streams-and-combine/

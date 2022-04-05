@@ -7,8 +7,7 @@ final class ParserTests: XCTestCase {
 
     //let app = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
 
-    let iterator = FeatureFileIterator(file: URL(string: "ffff")!)
-    let result = iterator.findMapping(line: "When I tap login")
+    let result = findMapping(line: "When I tap login")
 
     XCTAssertEqual(result?.parameters.count, 2, "Two parameters")
 
