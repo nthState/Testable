@@ -22,7 +22,7 @@ func extractTestingSteps(from steps: String) -> [String] {
 func findMapping(line action: String) -> (regex: String, selector: Selector, parameters: [String])? {
   for item in globalMap {
 
-    print(item)
+    logger.info("\(String(describing: item))")
 
     let regex = item.key
     let selector = item.value

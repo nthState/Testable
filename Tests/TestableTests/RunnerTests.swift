@@ -42,5 +42,15 @@ class RunnerTests: XCTestCase {
     }
     
   }
+
+  func testCommentedOut_Doesnt_Execute() async throws {
+
+    let url = FileManager.default.findAllFeatureFiles(named: "CommentedOut.feature", bundle: Bundle.module).first!
+
+    for try await _ in UITestStepSequence(featureFile: url) {
+      XCTFail("There should be no steps")
+    }
+
+  }
   
 }

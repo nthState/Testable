@@ -34,6 +34,8 @@ If the tests are to be `Human Readable`, how would one make the mapping?
 Ideas:
 - Could there be a seperate mapping.feature file, that other files can inherit?
 - Is it a problem if the person writing the tests uses the Text on screen?
+- Think about the concepts of blocks, Background, Scenario - we don't want to pass line by line
+in those cases
 
 
 ## Links
