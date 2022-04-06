@@ -7,5 +7,5 @@
 #
 #Scenario: An existing user can login.
 #  Given I launch the app.
-#  And I swipe through onboarding.
+#  And I swipe left on myButton
 #  Then I see xyz

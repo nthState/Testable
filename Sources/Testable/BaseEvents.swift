@@ -8,15 +8,23 @@
 import Foundation
 import XCTest
 
+/**
+ Use https://regex101.com/ in PCRE Mode to test
+
+(\s) match a single space
+([ \t]+) match any number of spaces or tabs
+
+ */
 let globalMap: [String: Selector] = [
   #"(?xi)(?-x:Feature:.*)"#: #selector(BaseEvents.noop),
-  #"(?xi)(?-x:When I.*)(?<action> tap | press)(?<identifier>.*)"#: #selector(BaseEvents.whenITap),
+  #"(?xi)(?-x:When I.*)(?<action> tap | press)(\s)(?<identifier>.*)"#: #selector(BaseEvents.whenITap),
   #"(?xi)(?-x:Then I see)(?<identifier>.*)"#: #selector(BaseEvents.thenISee),
   #"(?-x:The network state is )(?<networkState>unknown|restricted|unrestricted)"#: #selector(BaseEvents.networkIs),
   #"(?xi)(?-x:The server sends a push notification with )(?<json>.*)"#: #selector(BaseEvents.sendPush),
   #"(?xi)(?-x:And I get a push with )(?<title>.*)"#: #selector(BaseEvents.receivePush),
   #"(?-x:Requests to )(?<url>.*)(?-x:return)(?<json>.*)(?-x:with a)(?<httpCode>.*)"#: #selector(BaseEvents.requestsTo),
-  #"(?-x:And I open )(?<url>.*)"#: #selector(BaseEvents.openMagicLink)
+  #"(?-x:And I open )(?<url>.*)"#: #selector(BaseEvents.openMagicLink),
+  #"(?xi)(?-x:And I swipe.*)(?<direction> left | right)(?-x: on )(?<identifier>.*)"#: #selector(BaseEvents.swipe)
 ]
 
 open class BaseEvents: NSObject {
@@ -70,6 +78,33 @@ extension BaseEvents {
 
   @objc public func openMagicLink(url: String) {
     logger.info("openMagiclink: \(url)")
+  }
+
+  @objc public func swipe(direction: String, identifier: String) {
+    logger.info("swipe: \(direction) on \(identifier)")
+
+    enum Direction: String {
+      case left
+      case right
+      case up
+      case down
+    }
+
+    let direction = Direction(rawValue: direction)
+
+    switch direction {
+    case .left:
+      app?.swipeLeft()
+    case .right:
+      app?.swipeRight()
+    case .up:
+      app?.swipeUp()
+    case .down:
+      app?.swipeDown()
+    case .none:
+      break
+    }
+
   }
 
 }

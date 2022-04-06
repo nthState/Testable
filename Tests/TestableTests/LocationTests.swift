@@ -3,7 +3,7 @@ import XCTest
 
 final class LocationTests: XCTestCase {
 
-  func testFeatureFilesCanBeFound() throws {
+  func test_feature_files_can_be_found() throws {
 
     let runner = FileManager.default
     let features = runner.findAllFeatureFiles(bundle: Bundle.module)

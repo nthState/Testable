@@ -11,7 +11,7 @@ import Combine
 
 class RunnerTests: XCTestCase {
   
-  func testSingleFile() async throws {
+  func test_single_file() async throws {
     
     let url = FileManager.default.findAllFeatureFiles(named: "When.feature", bundle: Bundle.module).first!
     
@@ -24,7 +24,7 @@ class RunnerTests: XCTestCase {
     
   }
   
-  func testMultipleFiles() async throws {
+  func test_multiple_files() async throws {
     
     let urls = FileManager.default.findAllFeatureFiles(named: nil, bundle: Bundle.module)
     
@@ -43,7 +43,7 @@ class RunnerTests: XCTestCase {
     
   }
 
-  func testCommentedOut_Doesnt_Execute() async throws {
+  func test_commented_out_file_doesnt_execute() async throws {
 
     let url = FileManager.default.findAllFeatureFiles(named: "CommentedOut.feature", bundle: Bundle.module).first!
 
