@@ -1,4 +1,5 @@
 import PackagePlugin
+import Foundation
 
 /**
  https://github.com/apple/swift-evolution/blob/main/proposals/0303-swiftpm-extensible-build-tools.md
@@ -12,31 +13,62 @@ struct BuildPlugin: BuildToolPlugin {
 
     // This example configures the command to write to a "GeneratedSources" directory.
     let genSourcesDir = context.pluginWorkDirectory//.appending("GeneratedSources")
+    let file = genSourcesDir.appending("googleOutput.txt")
 
-    Diagnostics.warning("test in build")
-    print("in build")
+    //let url = URL(string: "https://blog.nthstate.com")!
+//
+//    FileManager.default.createFile(atPath: file.string, contents: nil)
+//
+//    let d = try? Data(contentsOf: url)
+//    print("remote: \(d)")
+//    let semaphore = DispatchSemaphore(value: 0)
+//
+//    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+//      semaphore.signal()
+//      guard let data = data else {
+//        print(url)
+//        fatalError(error?.localizedDescription ?? "Unknown Error")
+//      }
+//
+//      print("readl: \(data)")
+//
+//    }
+//
+//    task.resume()
+
+//    _ = semaphore.wait(timeout: .distantFuture)
+//
+//    sleep(3)
+
+    //Diagnostics.warning("test in build")
+    //print("in build")
     print("genSourcesDir: \(genSourcesDir)")
     // try context.tool(named: "swiftgen").path,
     ///usr/bin/curl
     ///Path("echo")
 
-    print(context.pluginWorkDirectory)
-    print(target.name)
-
     return [.prebuildCommand(
       displayName: "Running echo",
       executable: Path("/usr/bin/curl"),
       arguments: [
-        "-I", "https://www.google.com",
-        "-o", "googleOutput.txt"
+        "-XGET", "https://blog.nthstate.com",
+        "-o", file
       ],
-      environment: [
-        "PROJECT_DIR": "\(context.pluginWorkDirectory)",
-        "TARGET_NAME": "\(target.name)",
-        "DERIVED_SOURCES_DIR": "\(genSourcesDir)",
-      ],
+      //      environment: [
+      //        "PROJECT_DIR": "\(context.pluginWorkDirectory)",
+      //        "TARGET_NAME": "\(target.name)",
+      //        "DERIVED_SOURCES_DIR": "\(genSourcesDir)",
+      //      ],
+      environment: [:],
       outputFilesDirectory: genSourcesDir)]
 
-    //return []
+    //    return [.buildCommand(
+    //      displayName: "Running echo",
+    //      executable: Path("/usr/bin/curl"),
+    //      arguments: [
+    //        "-I", "https://www.google.com",
+    //        "-o", file
+    //      ],
+    //      environment: [:])]
   }
 }
