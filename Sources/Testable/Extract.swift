@@ -19,8 +19,8 @@ func extractTestingSteps(from steps: String) -> [String] {
   //return []
 }
 
-func findMapping(line action: String) -> (regex: String, selector: Selector, parameters: [String])? {
-  for item in globalMap {
+func extractMapping(line action: String, mappings: [String: Selector]) -> (regex: String, selector: Selector, parameters: [String])? {
+  for item in mappings {
 
     //logger.info("\(String(describing: item))")
 

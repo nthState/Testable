@@ -25,7 +25,8 @@ extension XCUIElement {
     let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
 
     //if case XCTWaiter.Result.completed = result {
-    if [XCTWaiter.Result.completed, .invertedFulfillment].contains(result) {
+    //if [XCTWaiter.Result.completed, .invertedFulfillment].contains(result) {
+      if [XCTWaiter.Result.completed].contains(result) {
       return true
     }
 

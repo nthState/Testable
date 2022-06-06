@@ -13,7 +13,7 @@ class RunnerTests: XCTestCase {
   
   func test_single_file() async throws {
     
-    let url = FileManager.default.findAllFeatureFiles(named: "When.feature", bundle: Bundle.module).first!
+    let url = FileManager.default.findFiles(named: "When.feature", bundle: Bundle.module).first!
     
     let system = BaseEvents()
     let executor = Executor(system: system)
@@ -26,7 +26,7 @@ class RunnerTests: XCTestCase {
   
   func test_multiple_files() async throws {
     
-    let urls = FileManager.default.findAllFeatureFiles(named: nil, bundle: Bundle.module)
+    let urls = FileManager.default.findFiles(named: nil, bundle: Bundle.module)
     
     for url in urls {
       
@@ -45,7 +45,7 @@ class RunnerTests: XCTestCase {
 
   func test_commented_out_file_doesnt_execute() async throws {
 
-    let url = FileManager.default.findAllFeatureFiles(named: "CommentedOut.feature", bundle: Bundle.module).first!
+    let url = FileManager.default.findFiles(named: "CommentedOut.feature", bundle: Bundle.module).first!
 
     for try await _ in UITestStepSequence(featureFile: url) {
       XCTFail("There should be no steps")

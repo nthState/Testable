@@ -27,9 +27,10 @@ struct UITestStepSequence: AsyncSequence {
   typealias Element = UITestStep
 
   var featureFile: URL
+    var mappings: [String: Selector] = [: ]
 
   func makeAsyncIterator() -> FeatureFileIterator {
-    FeatureFileIterator(file: featureFile)
+      FeatureFileIterator(file: featureFile, mappings: mappings)
   }
 }
 
@@ -37,10 +38,12 @@ struct FeatureFileIterator: AsyncIteratorProtocol {
 
   var lines: [String] = []
   var lineNumber: Int = 0
+    var mappings: [String: Selector] = [: ]
 
-  init(file: URL) {
+    init(file: URL, mappings: [String: Selector]) {
     let str = FileManager.default.loadFeatureFile(at: file)
     self.lines = extractTestingSteps(from: str)
+        self.mappings = mappings
   }
 
   mutating func next() async throws -> UITestStep? {
@@ -53,7 +56,7 @@ struct FeatureFileIterator: AsyncIteratorProtocol {
     lineNumber += 1
 
     // Find the selector in the mappings
-    guard let (regex, selector, parameters) = findMapping(line: line) else {
+      guard let (regex, selector, parameters) = extractMapping(line: line, mappings: mappings) else {
       return try await next()
     }
 

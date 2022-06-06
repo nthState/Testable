@@ -39,13 +39,13 @@ extension FileManager {
    Find all feature files in project
    Puts them in a random order
    */
-  public func findAllFeatureFiles(named: String? = nil, bundle: Bundle) -> [URL] {
+  public func findFiles(named: String? = nil, bundle: Bundle, extension: String = "feature") -> [URL] {
     guard let baseURL = bundle.resourceURL else {
       return []
     }
 
     let root = findFiles(at: baseURL)
-    let files = root.filter({ $0.pathExtension == "feature" })
+    let files = root.filter({ $0.pathExtension == `extension` })
 
     if let n = named {
       return files.filter({ $0.lastPathComponent == n })
