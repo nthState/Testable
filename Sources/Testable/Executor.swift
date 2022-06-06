@@ -15,20 +15,21 @@ class Executor {
     self.system = system
   }
 
-  func execute(step: UITestStep) {
+  @discardableResult
+  func execute(step: UITestStep) -> Bool {
 
     let selector = step.selector
     let parameters = step.parameters
 
     switch parameters.count {
     case 0:
-      system.perform(selector)
+      return system.perform(selector) != nil
     case 1:
-      system.perform(selector, with: parameters[0])
+      return system.perform(selector, with: parameters[0]) != nil
     case 2:
-      system.perform(selector, with: parameters[0], with: parameters[1])
+      return system.perform(selector, with: parameters[0], with: parameters[1]) != nil
     default:
-        break
+      return false
     }
 
   }

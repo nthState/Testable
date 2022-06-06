@@ -18,8 +18,8 @@ class RunnerTests: XCTestCase {
     let system = BaseEvents()
     let executor = Executor(system: system)
     
-    for try await step in UITestStepSequence(featureFile: url) {
-      executor.execute(step: step)
+    for try await step in UITestStepSequence(featureFile: url, mappings: system.globalMap) {
+      XCTAssertTrue(executor.execute(step: step))
     }
     
   }
@@ -31,23 +31,31 @@ class RunnerTests: XCTestCase {
     let system = BaseEvents()
     let executor = Executor(system: system)
 
+    let expectation = XCTestExpectation(description: "")
+    expectation.expectedFulfillmentCount = 4
+
     for url in urls {
 
       let publisher = UIActionSequencePublisher(featureFile: url, mappings: system.globalMap)
       
       for try await step in publisher.values {
         executor.execute(step: step)
+
+        expectation.fulfill()
       }
       
     }
-    
+
+    wait(for: [expectation], timeout: 10.0)
   }
 
   func test_commented_out_file_doesnt_execute() async throws {
 
     let url = FileManager.default.findFiles(named: "CommentedOut.feature", bundle: Bundle.module).first!
 
-    for try await _ in UITestStepSequence(featureFile: url) {
+    let system = BaseEvents()
+
+    for try await _ in UITestStepSequence(featureFile: url, mappings: system.globalMap) {
       XCTFail("There should be no steps")
     }
 

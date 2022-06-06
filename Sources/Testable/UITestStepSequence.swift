@@ -27,7 +27,7 @@ struct UITestStepSequence: AsyncSequence {
   typealias Element = UITestStep
 
   var featureFile: URL
-    var mappings: [String: Selector] = [: ]
+    var mappings: [String: Selector]
 
   func makeAsyncIterator() -> FeatureFileIterator {
       FeatureFileIterator(file: featureFile, mappings: mappings)
