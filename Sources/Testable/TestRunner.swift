@@ -34,9 +34,6 @@ public class TestRunner {
 
   public func execute(url: URL) async throws {
 
-
-
-
     for try await step in UITestStepSequence(featureFile: url, mappings: system.globalMap) {
       //Task { @MainActor in //Note: AppLaunch state doesn't work correctly here
       await MainActor.run {
@@ -50,14 +47,19 @@ public class TestRunner {
 
     let urls = FileManager.default.findFiles(bundle: bundle)
 
-
-
     for url in urls {
-      for try await step in UITestStepSequence(featureFile: url) {
+
+      logger.info("Feature File: \(url.lastPathComponent)")
+
+      for try await step in UITestStepSequence(featureFile: url, mappings: system.globalMap) {
         //Task { @MainActor in //Note: AppLaunch state doesn't work correctly here
         await MainActor.run {
           executor.execute(step: step)
         }
+      }
+
+      await MainActor.run {
+        application.terminate()
       }
     }
 
