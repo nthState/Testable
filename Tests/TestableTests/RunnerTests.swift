@@ -27,13 +27,13 @@ class RunnerTests: XCTestCase {
   func test_multiple_files() async throws {
     
     let urls = FileManager.default.findFiles(named: nil, bundle: Bundle.module)
-    
-    for url in urls {
-      
-      let system = BaseEvents()
-      let executor = Executor(system: system)
 
-      let publisher = UIActionSequencePublisher(featureFile: url)
+    let system = BaseEvents()
+    let executor = Executor(system: system)
+
+    for url in urls {
+
+      let publisher = UIActionSequencePublisher(featureFile: url, mappings: system.globalMap)
       
       for try await step in publisher.values {
         executor.execute(step: step)

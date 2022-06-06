@@ -64,11 +64,11 @@ extension BaseEvents {
     @objc public func whenILaunch(action: String, identifier: String) {
         logger.info("whenILaunch")
 
-        logger.info("App State: \(self.app!.state.rawValue)")
+        logger.info("App State: \(String(describing: self.app?.state.rawValue))")
 
         app?.launch()
 
-        logger.info("App State: \(self.app!.state.rawValue)")
+        logger.info("App State: \(String(describing: self.app?.state.rawValue))")
 
         sleep(2)
     }
@@ -76,7 +76,7 @@ extension BaseEvents {
     @objc public func whenITap(action: String, identifier: String) {
         logger.info("WhenI: \(action) \(identifier)")
 
-        logger.info("App State: \(self.app!.state.rawValue)")
+        logger.info("App State: \(String(describing: self.app?.state.rawValue))")
 
         //print(XCUIApplication().debugDescription)
         app?.buttons[identifier].isVisible(timeout: timeout)
