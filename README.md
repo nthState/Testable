@@ -1,10 +1,13 @@
 # Testable
 
-A XCUITest Wrapper to run .feature files as tests.
+A XCUITest Wrapper to run .feature files as ui tests.
 
-# Required Features
+# Features
 
 - Open to extend
+
+# Examples
+
 - Examples Universal links
 - Examples of network state
 - Examples of push notifications
@@ -12,9 +15,8 @@ A XCUITest Wrapper to run .feature files as tests.
 
 # Language
 
-- Feature
-- Inherit
-- Scenario
+- Feature:
+- Scenario:
 
 
 
@@ -38,6 +40,6 @@ Ideas:
 in those cases
 
 
-## Links
+## Usefull Links
 
 https://www.swiftbysundell.com/articles/async-sequences-streams-and-combine/

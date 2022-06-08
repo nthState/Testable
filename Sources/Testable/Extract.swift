@@ -19,14 +19,14 @@ func extractTestingSteps(from steps: String) -> [String] {
   //return []
 }
 
-func extractMapping(line action: String, mappings: [String: Selector]) -> (regex: String, selector: Selector, parameters: [String])? {
+func extractMapping(line action: String, mappings: [String: UIOperation]) -> (regex: String, operation: UIOperation, parameters: [String])? {
   for item in mappings {
-
+    
     //logger.info("\(String(describing: item))")
-
+    
     let regex = item.key
-    let selector = item.value
-
+    let operation = item.value
+    
     // What are the arguments in the string?
     let nsrange = NSRange(regex.startIndex..<regex.endIndex, in: regex)
     let namedRegex = try? NSRegularExpression(pattern: "\\(\\?\\<(\\w+)\\>", options: [])
@@ -34,11 +34,11 @@ func extractMapping(line action: String, mappings: [String: Selector]) -> (regex
     let names = nameMatches?.map { (textCheckingResult) -> String in
       return (regex as NSString).substring(with: textCheckingResult.range(at: 1))
     }
-
+    
     guard names?.isEmpty == false else {
       continue
     }
-
+    
     // Extract the arguments from the step so we can pass them to the method later on
     let exp = try? NSRegularExpression(pattern: regex, options: [])
     let result = exp?.firstMatch(in: action, options: [], range: NSRange(location: 0, length: action.count))
@@ -48,13 +48,13 @@ func extractMapping(line action: String, mappings: [String: Selector]) -> (regex
         parameters.append((action as NSString).substring(with: range))
       }
     }
-
+    
     guard result != nil else {
       continue
     }
-
-    return (regex, selector, parameters)
+    
+    return (regex, operation, parameters)
   }
-
+  
   return nil
 }

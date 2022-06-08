@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 
-public func UIActionSequencePublisher(featureFile file: URL, mappings: [String: Selector]) -> AnyPublisher<UITestStep, Never> {
+public func UIActionSequencePublisher(featureFile file: URL, mappings: [String: UIOperation]) -> AnyPublisher<UITestStep, Never> {
   
   let str = FileManager.default.loadFeatureFile(at: file)
   let lines = extractTestingSteps(from: str)
@@ -18,16 +18,16 @@ public func UIActionSequencePublisher(featureFile file: URL, mappings: [String: 
     .publisher
     .map { line -> UITestStep in
       
-      // Find the selector in the mappings
-        guard let (regex, selector, parameters) = extractMapping(line: line, mappings: mappings) else {
+      // Find the operation in the mappings
+      guard let (regex, operation, parameters) = extractMapping(line: line, mappings: mappings) else {
         fatalError()
       }
       
-      let step = UITestStep(regex: regex, action: line, selector: selector, parameters: parameters)
+      let step = UITestStep(regex: regex, action: line, operation: operation, parameters: parameters)
       
       return step
     }
-    //.receive(on: RunLoop.main) // Note: Doesn't help
+  //.receive(on: RunLoop.main) // Note: Doesn't help
     .eraseToAnyPublisher()
 }
 

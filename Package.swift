@@ -11,22 +11,11 @@ let package = Package(
       name: "Testable",
       targets: ["Testable"]),
   ],
-  dependencies: [
-    // Dependencies declare other packages that this package depends on.
-    // .package(url: /* package url */, from: "1.0.0"),
-  ],
+  dependencies: [],
   targets: [
-    .plugin(
-      name: "BuildPlugin",
-      capability: .buildTool(),
-      dependencies: []
-    ),
     .target(
       name: "Testable",
-      dependencies: [],
-      plugins: [
-        .plugin(name: "BuildPlugin")
-      ]),
+      dependencies: []),
     .testTarget(
       name: "TestableTests",
       dependencies: ["Testable"],
