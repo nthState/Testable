@@ -33,11 +33,11 @@ class Executor {
     case .selector(let selector):
       switch parameters.count {
       case 0:
-        return system.perform(selector) != nil
+         system.perform(selector)
       case 1:
-        return system.perform(selector, with: parameters[0]) != nil
+         system.perform(selector, with: parameters[0])
       case 2:
-        return system.perform(selector, with: parameters[0], with: parameters[1]) != nil
+         system.perform(selector, with: parameters[0], with: parameters[1])
       default:
         return false
       }

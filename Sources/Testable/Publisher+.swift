@@ -9,9 +9,8 @@ import Foundation
 import Combine
 
 
-public func UIActionSequencePublisher(featureFile file: URL, mappings: [String: UIOperation]) -> AnyPublisher<UITestStep, Never> {
-  
-  let str = FileManager.default.loadFeatureFile(at: file)
+public func UIActionSequencePublisher(feature str: String, mappings: [String: UIOperation]) -> AnyPublisher<UITestStep, Never> {
+
   let lines = extractTestingSteps(from: str)
   
   return lines

@@ -97,20 +97,20 @@ extension BaseEvents {
   }
   
   @objc public func thenIType(identifier: String) {
-    logger.info("ThenType: \(identifier)")
-    
-    let noQuotes = identifier.replacingOccurrences(of: "\"", with: "")
-    
-    guard let app = app else {
-      return
-    }
-    
-    if [app.otherElements[noQuotes].isVisible(),
-        app.staticTexts[noQuotes].isVisible()].contains(where: { $0 == true }) {
-      logger.info("Found: \(noQuotes)")
-    } else {
-      XCTFail("Couldn't find anything matching: \(noQuotes)")
-    }
+//    logger.info("ThenType: \(identifier)")
+//    
+//    let noQuotes = identifier.replacingOccurrences(of: "\"", with: "")
+//    
+//    guard let app = app else {
+//      return
+//    }
+//    
+//    if [app.otherElements[noQuotes].isVisible(),
+//        app.staticTexts[noQuotes].isVisible()].contains(where: { $0 == true }) {
+//      logger.info("Found: \(noQuotes)")
+//    } else {
+//      XCTFail("Couldn't find anything matching: \(noQuotes)")
+//    }
   }
   
   //    @objc public func thenISeeText(identifier: String) {
